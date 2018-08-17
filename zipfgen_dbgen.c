@@ -25,6 +25,10 @@ Copyright (c) 1996, 1997 by Mauricio A. Hernandez.  All rights reserved.\
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/time.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 #include "gen_dbgen.h"
 #include "keyboard.h"
 
@@ -508,11 +512,11 @@ register Person *p;
 	    strcpy(p->street_number, "");
 	    strcpy(p->apartment, "");
 	    strcpy(p->suffix, "");
-	    sprintf(p->street_name,"PO Box %d", myrandom(5000)+1);
+	    sprintf(p->street_name,"PO Box %ld", myrandom(5000)+1);
 	    using_PO_box = TRUE;
 	} else {
-	    sprintf(p->street_number, "%d", myrandom(1000)+1);
-	    sprintf(p->apartment, "%c%c%c", gendigit(), genletter(), gendigit());
+	    sprintf(p->street_number, "%ld", myrandom(1000)+1);
+	    sprintf(p->apartment, "%ld%ld%ld", gendigit(), genletter(), gendigit());
 	    ra = myrandom(NameList.size);
 	    strcpy(p->street_name, NameList.item[ra]);
 	    p->street_name[0] = toupper(p->street_name[0]);
@@ -1068,7 +1072,7 @@ int  fixed;
       return(-1);
     }
     if (!be_quiet)
-      fprintf(stderr, "%d words read from %s.\n", nnames, namesfilename);
+      fprintf(stderr, "%ld words read from %s.\n", nnames, namesfilename);
     
     /* Preare keyboard information */
     key_substitutions();
@@ -1194,8 +1198,8 @@ int  fixed;
   
   if (qflag) {
     fprintf(stderr, "------------------------------------------------------\n");
-    fprintf(stderr, " %d clusters generated containing a total of", nClusters); 
-    fprintf(stderr, " %d records.\n", trecs);
+    fprintf(stderr, " %ld clusters generated containing a total of", nClusters); 
+    fprintf(stderr, " %ld records.\n", trecs);
     fprintf(stderr, " Random seed : %d\n", seed);
     fprintf(stderr, "------------------------------------------------------\n");
   }

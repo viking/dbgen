@@ -25,6 +25,8 @@ Copyright (c) 1996, 1997 by Mauricio A. Hernandez.  All rights reserved.\
 #include <stdlib.h>
 #include <ctype.h>
 #include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
 #include "gen_dbgen.h"
 
 #ifdef DEBUG
@@ -110,6 +112,7 @@ char *generator_dir = NULL;
 boolean userinterface = FALSE;
 int	seed = 0;
 
+void redrawscreen();
 
 boolean
 confirm(text)
@@ -753,7 +756,8 @@ show_parameter_values()
 	}
 }
 
-show_message(message)
+void
+show_message(char *message)
 {
 	move(lline,0);
 	clrtoeol();
@@ -770,6 +774,7 @@ char *mesg;
 	printw("%s", mesg);
 }
 
+void
 show_page_marks()
 {
 	char page_mesg[20];
@@ -1220,7 +1225,7 @@ set_main_screen()
 }
 
 
-redrawscreen()
+void redrawscreen()
 {
 	clear();
 	set_main_screen();
@@ -1235,6 +1240,7 @@ redrawscreen()
 
 /* Main Program of the User Interface */
 
+void
 main(argc, argv)
 int argc;
 char **argv;
