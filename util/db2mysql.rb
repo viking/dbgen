@@ -10,6 +10,7 @@ table = cli.ask("Table to create: ")
 client.query("CREATE DATABASE IF NOT EXISTS #{database}")
 client.query(<<EOF)
 CREATE TABLE #{database}.#{table} (
+  id INT NOT NULL AUTO_INCREMENT,
   cluster_id INT,
   record_id INT,
   ssn VARCHAR(9),
@@ -21,7 +22,8 @@ CREATE TABLE #{database}.#{table} (
   apt VARCHAR(15),
   city VARCHAR(63),
   state VARCHAR(2),
-  zip VARCHAR(5)
+  zip VARCHAR(5),
+  PRIMARY KEY(id)
 )
 EOF
 
